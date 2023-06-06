@@ -51,7 +51,7 @@ describe('Launches API', ()=>{
         }
     
         test('It Sholud respond with 201 sucessfully',async ()=>{
-            const response = await request(app).post('/launches')
+            const response = await request(app).post('/v1/launches')
             .send(completeLaunchData).expect('Content-Type', /json/).expect(201);
     
             const requestDate =new Date(completeLaunchData.launchDate).valueOf();
@@ -62,7 +62,7 @@ describe('Launches API', ()=>{
         
         });
         test('It Sholud misssing required property',async ()=>{
-            const response = await request(app).post('/launches')
+            const response = await request(app).post('/v1/launches')
             .send(launchDataWithoutDate).expect('Content-Type', /json/).expect(400);
     
             expect(response.body).toStrictEqual({
@@ -71,7 +71,7 @@ describe('Launches API', ()=>{
         });
     
         test ('It Sholud also catch invalid date', async()=>{
-            const response = await request(app).post('/launches')
+            const response = await request(app).post('/v1/launches')
             .send(launchDataWithInvalidDate).expect('Content-Type', /json/).expect(400);
     
             expect(response.body).toStrictEqual({
